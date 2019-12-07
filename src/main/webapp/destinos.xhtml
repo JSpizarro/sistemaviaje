@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	<ui:define name="content">
+
+		<p:growl id="growl" life="2000" showDetail="true" />
+
+		<p:panel id="basic" header="Agregar Destinos"
+			footer="Total #{destinoView.destinos.size()}" widgetVar="basic">
+
+			<p:commandButton value="Listar" icon="fa fa-list"
+				action="#{destinoView.init()}"  style="margin-right:10px;" update=":basic"/>
+				
+			<p:commandButton value="Nuevo" icon="fa fa-plus"
+				oncomplete="PF('dialog').show();" >
+			</p:commandButton>
+
+			<p:dataTable var="des" value="#{destinoView.destinos}" style="margin-top:10px">
+				<p:column headerText="ID">
+					<h:outputText value="#{des.idDestino}" />
+				</p:column>
+
+				<p:column headerText="NOMBRE">
+					<h:outputText value="#{des.nombre}" />
+				</p:column>
+				
+				<p:column headerText="TIPO DE VIAJE">
+					<h:outputText value="#{des.tipoviaje.tipoViaje}" />
+				</p:column>
+				
+				<p:column headerText="PRECIO">
+					<h:outputText value="#{des.precio}" />
+				</p:column>
+				
+				<p:column headerText="OPCIONES">
+				
+					<p:commandButton icon="fa fa-refresh"
+	    				action="#{destinoView.buscar(des.idDestino)}"
+	    				oncomplete="PF('dialog').show();"
+	    				update="dialogId"
+	    			/>
+					
+					<p:commandButton icon="fa fa-remove"
+	    				action="#{destinoView.eliminar(des.idDestino)}"
+	    				update=":growl :basic"/>
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+
+		<p:dialog id="dialogId" header="Nuevo" widgetVar="dialog" modal="true">
+			<h:panelGrid columns="2" cellpadding="3" style="margin-bottom:10px">
+				<h:outputText value="Nombre" />
+				<p:inputText value="#{destinoView.destino.nombre}"/>
+				
+				<h:outputText value="tipoViaje" />
+				<p:selectOneMenu
+					value="#{destinoView.destino.tipoviaje.idTipoViaje}">
+					<f:selectItems var="tipoviaje" value="#{tipoView.tipoviajes}"
+						itemLabel="#{tipoviaje.tipoViaje}"
+						itemValue="#{tipoviaje.idTipoViaje}">
+					</f:selectItems>
+				</p:selectOneMenu>
+				
+				<h:outputText value="Precio" />
+				<p:inputText value="#{destinoView.destino.precio}"/>
+			</h:panelGrid>
+			<p:commandButton value="Registrar" 
+						action="#{destinoView.registrar}" update=":basic :growl" oncomplete="PF('dialog').hide();" />
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>

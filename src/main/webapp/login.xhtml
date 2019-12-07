@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+</h:head>
+
+<h:body>
+<script type="text/javascript">
+PrimeFaces.locales['es'] = {
+    closeText: 'Cerrar',
+    prevText: 'Anterior',
+    nextText: 'Siguiente',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+    dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+    weekHeader: 'Semana',
+    firstDayOfWeek: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: '',
+    timeOnlyTitle: 'Sólo hora',
+    timeText: 'Tiempo',
+    hourText: 'Hora',
+    minuteText: 'Minuto',
+    secondText: 'Segundo',
+    currentText: 'Fecha actual',
+    ampm: false,
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    allDayText: 'Todo el día'
+};
+</script>
+	<div class="ui-g">
+		<div class="ui-g-4" />
+		<div class="ui-g-4">
+
+			<p:growl id="growl" life="5000" showDetail="true" />
+
+			<h:form prependId="false"
+				style="width: max-content ;margin-top:100px">
+				<p:fieldset id="login" legend="Acceso al Sistema">
+					<p:messages />
+					<h:panelGrid columns="3" cellpadding="3" style="margin-bottom:10px">
+						<h:outputText value="Usuario" />
+						<p:inputText id="usuario" value="#{usuarioView.usuario}"/>
+						<p:message for="usuario" display="icon" />
+						<h:outputText value="Contraseña" />
+						<p:password id="password" value="#{usuarioView.password}" />
+						<p:message for="password" display="icon" />
+					</h:panelGrid>
+					<p:commandButton value="Ingresar" update="login"
+						action="#{usuarioView.login}" />
+
+					<p:commandButton value="¿Eres nuevo? Registrate" icon="fa fa-plus"
+						oncomplete="PF('dialog').show();">
+					</p:commandButton><br></br>
+					<h:panelGrid>
+				 <!-- <p:commandButton  value="¿Olvido usuario o contraseña?" action="#{reservaView.regreso}" 
+				 style="font-size:10px;height:16px;width:200px">
+					</p:commandButton>  -->
+				</h:panelGrid>
+				
+				</p:fieldset>
+			</h:form>
+
+			<h:form>
+				<p:dialog id="dialogId" header="Registro Usuario" widgetVar="dialog"
+					modal="true">
+					<h:panelGrid columns="2" cellpadding="3"
+						style="margin-bottom:10px;width:100px">
+						<h:outputText value="Nombre:"/>
+						<p:inputText value="#{registroView.usuario.nombre}"/>
+						<h:outputText value="Apellido:" />
+						<p:inputText value="#{registroView.usuario.apellido}" />
+						<h:outputText value="Fecha de nacimiento" />
+						<p:datePicker id="fechaNacimiento"
+							value="#{registroView.usuario.fechaNacimiento}" showIcon="true"
+							pattern="yyyy/MM/dd" locale="es">
+							<f:convertDateTime type="#{fechaNacimiento}" pattern="yyyy/MM/dd" />
+						</p:datePicker>
+						<h:outputText value="Dni:" />
+						<p:inputText value="#{registroView.usuario.dni}" />
+						<h:outputText value="Email:" />
+						<p:inputText value="#{registroView.usuario.email}" />
+						<h:outputText value="Empresa:" />
+						<p:inputText value="#{registroView.usuario.nombreEmpresa}" />
+						<h:outputText value="Ruc:" />
+						<p:inputText value="#{registroView.usuario.ruc}" />
+						<h:outputText value="Usuario:" />
+						<p:inputText value="#{registroView.usuario.usuario}" />
+						<h:outputText value="Contraseña:" />
+						<p:password value="#{registroView.usuario.password}" />
+					</h:panelGrid>
+					<p:commandButton value="Registrar"
+						action="#{registroView.registrar}" update=" :growl"
+						oncomplete="PF('dialog').hide();" />
+				</p:dialog>
+			</h:form>
+		</div>
+		<div class="ui-g-4" />
+	</div>
+
+</h:body>
+</html>

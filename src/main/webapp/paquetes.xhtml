@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	<ui:define name="content">
+
+		<p:growl id="growl" life="2000" showDetail="true" />
+
+		<p:panel id="basic" header="Lista de paquetes de viaje"
+			widgetVar="basic" action="#{paquetesView.init()}">
+
+			<!-- <p:commandButton value="Listar" icon="fa fa-list"
+				action="#{paquetesView.init()}" style="margin-right:10px;"
+				update=":basic" /> -->
+
+			<p:commandButton value="Nuevo" icon="fa fa-plus"
+				oncomplete="PF('dialog').show();">
+			</p:commandButton>
+
+			<p:dataTable var="des" value="#{paquetesView.paquetesviajes}"
+				style="margin-top:10px">
+				<p:column headerText="NOMBRE DE PAQUETE">
+					<h:outputText value="#{des.nombrePaquete}" />
+				</p:column>
+
+				<p:column headerText="DESCRIPCION">
+					<h:outputText value="#{des.descripcionPaquete}" />
+				</p:column>
+				
+				<p:column headerText="TIPO DE VIAJE">
+					<h:outputText value="#{des.tipoviaje.tipoViaje}" />
+				</p:column>
+
+				<!-- <p:column headerText="DESTINO">
+					<h:outputText value="#{des.destino.nombre}" />
+				</p:column> -->
+
+				<p:column headerText="PRECIO">
+					<h:outputText value="#{des.precio}" />
+				</p:column>
+
+				<p:column headerText="OPCIONES">
+					<!-- <h:outputText  style="font-size:14px;margin-top:2px" /> -->
+					<p:commandButton title="Actualizar paquete" value="Actualizar paquete"
+						style="font-size:13px;height:25px;width:165px;margin-bottom:3px" icon="fa fa-refresh"
+						action="#{paquetesView.buscar(des.idpaquetesViaje)}"
+						oncomplete="PF('dialog').show();" update="dialogId" />
+
+					<!--<p:commandButton title="Eliminar paquete" icon="fa fa-remove"
+				action="#{paquetesView.eliminar}" update=":growl" /> 
+				<h:outputText value="Registrar reserva" style="font-size:14px;" />-->
+					<p:commandButton value="Registrar reserva"
+						style="font-size:13px;height:25px;width:165px;" icon="fa fa-plus" 
+						action="#{paquetesView.buscar(des.idpaquetesViaje)}"
+						oncomplete="PF('dialo').show();"  update="dialoId" />
+
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+
+		<p:dialog id="dialogId" header="Paquetes de Viaje" widgetVar="dialog"
+			modal="true">
+			<h:panelGrid columns="2" cellpadding="3" style="margin-bottom:10px">
+				<h:outputText value="Nombre" />
+				<p:inputText value="#{paquetesView.paquetesviaje.nombrePaquete}" />
+				
+				<h:outputText value="Descripcion" />
+				<p:inputText value="#{paquetesView.paquetesviaje.descripcionPaquete}" />
+				
+				<h:outputText value="tipoViaje" />
+				<p:selectOneMenu
+					value="#{paquetesView.paquetesviaje.tipoviaje.idTipoViaje}">
+					<f:selectItems var="tipoviaje" value="#{tipoView.tipoviajes}"
+						itemLabel="#{tipoviaje.tipoViaje}"
+						itemValue="#{tipoviaje.idTipoViaje}">
+					</f:selectItems>
+				</p:selectOneMenu>
+				
+				<!-- <p:inputText
+					value="#{paquetesView.paquetesviaje.descripcionPaquete}" />
+				<h:outputText value="Destino" /> 
+				<p:selectOneMenu
+					value="#{paquetesView.paquetesviaje.destino.idDestino}">
+					<f:selectItems var="destino" value="#{destinoView.destinos}"
+						itemLabel="#{destino.nombre}" itemValue="#{destino.idDestino}">
+					</f:selectItems>
+				</p:selectOneMenu>-->
+				
+				<h:outputText value="Precio" />
+				<p:inputText value="#{paquetesView.paquetesviaje.precio}" />
+			</h:panelGrid>
+			<p:commandButton value="Registrar" action="#{paquetesView.registrar}"
+				update=":basic :growl" oncomplete="PF('dialog').hide();" />
+		</p:dialog>
+
+
+
+
+		<p:dialog id="dialoId" header="Registro de reserva"
+			showEffect="explode" hideEffect="bounce" widgetVar="dialo"
+			modal="true">
+			<h:panelGrid columns="2" cellpadding="3" style="margin-bottom:10px">
+			
+				<h:outputText value="Paquetes" /> 
+				  <p:selectOneMenu
+					value="#{reservaView.reserva.paquetesviaje.idpaquetesViaje}">
+					 <f:selectItems var="paquetesviaje" value="#{paquetesView.paquetesviajes}"
+						itemLabel="#{paquetesView.paquetesviaje.nombrePaquete}" 
+						itemValue="#{paquetesviaje.idpaquetesViaje}">
+					</f:selectItems> 
+				</p:selectOneMenu> 
+				
+				<h:outputText value="Destino" />
+				<p:selectOneMenu 
+					value="#{reservaView.reserva.destino.idDestino}">
+					<f:selectItems var="destino" value="#{destinoView.destinos}"
+						itemLabel="#{destino.nombre}" itemValue="#{destino.idDestino}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+				<h:outputText value="tipoViaje" />
+				<p:selectOneMenu
+					value="#{reservaView.reserva.tipoviaje.idTipoViaje}">
+					<f:selectItems var="tipoviaje" value="#{tipoView.tipoviajes}"
+						itemLabel="#{tipoviaje.tipoViaje}"
+						itemValue="#{tipoviaje.idTipoViaje}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+				<h:outputText value="Pago" />
+				<p:selectOneMenu value="#{reservaView.reserva.pago.idpago}">
+					<f:selectItems var="pago" value="#{pagoView.pagos}"
+						itemLabel="#{pago.tipo}" itemValue="#{pago.idpago}">
+					</f:selectItems>
+				</p:selectOneMenu>
+
+				<h:outputText value="Usuario" />
+				<p:selectOneMenu value="#{reservaView.reserva.usuario.idUsuario}">
+					<f:selectItems var="usuario" value="#{registroView.usuarios}"
+						itemLabel="#{usuario.dni}" itemValue="#{usuario.idUsuario}">
+					</f:selectItems>
+				</p:selectOneMenu>
+				
+				<h:outputText value="Hotel" />
+				<p:selectOneMenu value="#{reservaView.reserva.hotel.idhotel}">
+					<f:selectItems var="hotel" value="#{hotelView.hoteles}"
+						itemLabel="#{hotel.nombre}" itemValue="#{hotel.idhotel}">
+					</f:selectItems>
+				</p:selectOneMenu>
+				
+				<h:outputText value="Restaurante" />
+				<p:selectOneMenu value="#{reservaView.reserva.restaurante.idrestaurante}">
+					<f:selectItems var="restaurante" value="#{restauranteView.restaurantes}"
+						itemLabel="#{restaurante.nombre}" itemValue="#{restaurante.idrestaurante}">
+					</f:selectItems>
+				</p:selectOneMenu>				
+				
+				
+				
+				<!-- p:selectOneMenu value="#{reservaView.reserva}">
+					<f:selectItems var="estado" value="#{registroView.usuarios}"
+						itemLabel="#{usuario.dni}" itemValue="#{usuario.idUsuario}">
+					</f:selectItems>
+				</p:selectOneMenu> -->
+			</h:panelGrid>
+
+			<p:commandButton value="Registrar" action="#{reservaView.registrar}"
+				update=":growl" oncomplete="PF('dialo').hide();" />
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+</html>

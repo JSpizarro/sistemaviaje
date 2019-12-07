@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	<ui:define name="content">
+
+<script type="text/javascript">
+PrimeFaces.locales['es'] = {
+    closeText: 'Cerrar',
+    prevText: 'Anterior',
+    nextText: 'Siguiente',
+    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+    dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+    weekHeader: 'Semana',
+    firstDayOfWeek: 1,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: '',
+    timeOnlyTitle: 'Sólo hora',
+    timeText: 'Tiempo',
+    hourText: 'Hora',
+    minuteText: 'Minuto',
+    secondText: 'Segundo',
+    currentText: 'Fecha actual',
+    ampm: false,
+    month: 'Mes',
+    week: 'Semana',
+    day: 'Día',
+    allDayText: 'Todo el día'
+};
+</script>
+		<p:growl id="growl" life="2000" showDetail="true" />
+
+		<p:panel id="basic" header="Actualización de datos personales "  action="#{registroView.init()}" widgetVar="basic" >
+		
+
+		<p:dataTable var="res" value="#{registroView.usuarios}" style="margin-top:10px">
+		
+				<!-- <p:column headerText="ID">
+					<h:outputText value="#{res.idUsuario}" />
+				</p:column> -->
+
+				<p:column headerText="NOMBRE">
+					<h:outputText value="#{res.nombre}" />
+				</p:column>
+				<p:column headerText="apellido">
+					<h:outputText value="#{res.apellido}" />
+				</p:column>
+				<p:column headerText="email">
+					<h:outputText value="#{res.email}" />
+				</p:column>
+				<p:column headerText="Usuario">
+					<h:outputText value="#{res.usuario}" />
+				</p:column>
+				
+				<p:column headerText="OPCIONES">
+				
+					<p:commandButton icon="fa fa-refresh"
+	    				action="#{registroView.buscar(res.idUsuario)}"
+	    				oncomplete="PF('dialog').show();"
+	    				update="dialogId"
+	    			/>
+					
+					<!-- <p:commandButton icon="fa fa-remove"
+	    				action="#{registroView.eliminar(res.idUsuario)}"
+	    				update=":growl :basic"/> -->
+				</p:column>
+			</p:dataTable>
+
+		</p:panel>
+
+		<p:dialog id="dialogId" header="Nuevo" widgetVar="dialog" modal="true">
+			<h:panelGrid columns="2" cellpadding="5" style="margin-bottom:10px;width:100px">
+				<h:outputText value="Nombre:" />
+				<p:inputText value="#{registroView.usuario.nombre}"/>
+				<h:outputText value="Apellido:" />
+				<p:inputText value="#{registroView.usuario.apellido}"/>
+				
+				<h:outputText value="Email:" />
+				<p:inputText value="#{registroView.usuario.email}"/>
+				<h:outputText value="Empresa:" />
+				<p:inputText value="#{registroView.usuario.nombreEmpresa}"/>
+				<h:outputText value="Ruc:" />
+				<p:inputText value="#{registroView.usuario.ruc}"/>
+				<h:outputText value="Usuario:" />
+				<p:inputText value="#{registroView.usuario.usuario}"/>
+				<h:outputText value="Contraseña:" />
+				<p:password value="#{registroView.usuario.password}"/>
+			</h:panelGrid>
+			<p:commandButton value="Actualizar"
+						action="#{registroView.registrar}" update=":basic :growl" oncomplete="PF('dialog').hide();" />
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
+</html>
+<!-- <ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	<ui:define name="content">
+
+
+		<p:growl id="growl" life="2000" showDetail="true" />
+
+		<p:panel id="basic" header="Registro de Usuario" style="margin-right:1500px">
+				
+			<h:panelGrid columns="1" cellpadding="5" style="margin-bottom:10px;width:100px">
+				<h:outputText value="Nombre:" />
+				<p:inputText value="#{registroView.usuarios.nombres}"/>
+				<h:outputText value="Apellido:" />
+				<p:inputText value="#{registroView.usuarios.apellido}"/>
+				<h:outputText value="Dni:" />
+				<p:inputText value="#{registroView.usuarios.dni}"/>
+				<h:outputText value="Email:" />
+				<p:inputText value="#{registroView.usuarios.email}"/>
+				<h:outputText value="Usuario:" />
+				<p:inputText value="#{registroView.usuarios.usuario}"/>
+				<h:outputText value="Contraseña:" />
+				<p:password value="#{registroView.usuarios.password}"/>
+			</h:panelGrid>
+			<p:commandButton style="left:60px" value="Registrar"
+						action="#{registroView.registrar()}" update=":growl"/>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
+</html> -->

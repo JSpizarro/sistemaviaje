@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<p:menu toggleable="true">
+		<p:submenu label="Operaciones">
+			<p:menuitem value="Registro de Reservas" ajax="false" action="reservas"
+				icon="pi pi-save" />
+			<p:menuitem value="Actualice su reserva" ajax="false" action="reservas2"
+				icon="pi pi-refresh" />
+		</p:submenu>
+		<p:submenu label="Consultar">
+			 <p:menuitem value="Destinos" action="destinos"  ajax="false" icon="pi pi-times" />
+			<p:menuitem value="Paquetes de viaje" action="paquetes" ajax="false"
+				icon="pi pi-times" />
+				<p:menuitem value="Tipo" action="tipos" ajax="false"
+				icon="pi pi-times" />
+		</p:submenu>
+		<p:submenu label="Reportes">
+			<!--  <p:menuitem value="Ventas" url="http://www.primefaces.org"
+				icon="pi pi-home" /> -->
+			<!--<p:menuitem value="Productos" url="http://www.primefaces.org"
+				icon="pi pi-home" /> -->
+		</p:submenu>
+		<p:submenu label="Mi perfil">
+			<p:menuitem value="Editar información" ajax="false"
+				action="registro" icon="pi pi-home" />
+			<p:menuitem value="Cerrar sesión" ajax="false" action="login" icon="pi pi-home" />
+		</p:submenu>
+	</p:menu>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="viajes">
+		<class>pe.edu.cibertec.Viajes.entity.Destino</class>
+		<class>pe.edu.cibertec.Viajes.entity.Hotel</class>
+		<class>pe.edu.cibertec.Viajes.entity.Pago</class>
+		<class>pe.edu.cibertec.Viajes.entity.Paquetesviaje</class>
+		<class>pe.edu.cibertec.Viajes.entity.Reserva</class>
+		<class>pe.edu.cibertec.Viajes.entity.Restaurante</class>
+		<class>pe.edu.cibertec.Viajes.entity.Tipoviaje</class>
+		<class>pe.edu.cibertec.Viajes.entity.Usuario</class>
+	</persistence-unit>
+</persistence>

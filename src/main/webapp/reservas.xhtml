@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/template/BasicTemplate.xhtml">
+	<ui:define name="content">
+
+		<p:growl id="growl" life="2000" showDetail="true" />
+
+		<p:panel id="basic" header="Registrar Reservas"
+			footer="Total #{reservaView.reservas.size()}" action="#{reservaView.init()}" widgetVar="basic">
+			
+
+ <!-- <p:commandButton value="Listar" icon="fa fa-list"
+				action="#{reservaView.init()}"  style="margin-right:10px;" update=":basic"/>
+				
+			<p:commandButton value="Nuevo" icon="fa fa-plus"
+				oncomplete="PF('dialog').show();" >
+			</p:commandButton> 
+ -->
+			<p:dataTable var="re" value="#{reservaView.reservas}" style="margin-top:10px">
+				<p:column headerText="ID">
+					<h:outputText value="#{re.idreserva}" />
+				</p:column>
+
+				<p:column headerText="Destino">
+					<h:outputText value="#{re.destino.nombre}" />
+				</p:column>
+				
+				<p:column headerText="Paquete">
+					<h:outputText value="#{re.paquetesviaje.nombrePaquete}" />
+				</p:column>
+				<p:column headerText="Tipo-Viaje">
+					<h:outputText value="#{re.tipoviaje.tipoViaje}" />
+				</p:column>
+				<p:column headerText="Tipo-Pago">
+					<h:outputText value="#{re.pago.tipo}" />
+				</p:column>
+				<p:column headerText="Usuario">
+					<h:outputText value="#{re.usuario.nombre}" />
+				</p:column>
+				
+				
+				<!-- <p:column headerText="OPCIONES">
+				
+					<p:commandButton icon="fa fa-refresh"
+	    				action="#{reservaView.buscar(re.idreserva)}"
+	    				oncomplete="PF('dialog').show();"
+	    				update="dialogId"
+	    			/>
+					
+					<p:commandButton icon="fa fa-remove"
+	    				action="#{reservaView.eliminar(re.idreserva)}"
+	    				update=":growl :basic"/>
+				</p:column>  -->
+			</p:dataTable>
+ 
+		</p:panel>
+
+		<!-- <p:dialog id="dialogId" header="Nuevo" widgetVar="dialog" modal="true">
+			<h:panelGrid columns="2" cellpadding="3" style="margin-bottom:10px">
+			
+				<h:outputText value="Destino"/>
+	    			<p:selectOneMenu value="#{reservaView.reserva.destino.idDestino}">
+	    				<f:selectItems var="destino" value="#{destinoView.destinos}"
+	    					itemLabel="#{destino.nombre}" itemValue="#{destino.idDestino}">
+	    				</f:selectItems>	    			
+	    			</p:selectOneMenu>	
+	    			
+				<h:outputText value="Paquetes"/>
+	    			<p:selectOneMenu value="#{reservaView.reserva.paquetesviaje.idpaquetesViaje}">
+	    				<f:selectItems var="paquetesviaje" value="#{paquetesView.paquetesviajes}"
+	    					itemLabel="#{paquetesviaje.nombrePaquete}" itemValue="#{paquetesviaje.idpaquetesViaje}">
+	    				</f:selectItems>	    			
+	    			</p:selectOneMenu>	
+	    			
+	    			<h:outputText value="tipoViaje"/>
+	    			<p:selectOneMenu value="#{reservaView.reserva.tipoviaje.idTipoViaje}">
+	    				<f:selectItems var="tipoviaje" value="#{tipoView.tipoviajes}"
+	    					itemLabel="#{tipoviaje.tipoViaje}" itemValue="#{tipoviaje.idTipoViaje}">
+	    				</f:selectItems>	    			
+	    			</p:selectOneMenu>
+	    			
+	    			<h:outputText value="Pago"/>
+	    			<p:selectOneMenu value="#{reservaView.reserva.pago.idpago}">
+	    				<f:selectItems var="pago" value="#{pagoView.pagos}"
+	    					itemLabel="#{pago.tipo}" itemValue="#{pago.idpago}">
+	    				</f:selectItems>	    			
+	    			</p:selectOneMenu>		
+	    			
+	    			<h:outputText value="Usuario"/>
+	    			<p:selectOneMenu value="#{reservaView.reserva.usuario.idUsuario}">
+	    				<f:selectItems var="usuario" value="#{registroView.usuarios}"
+	    					itemLabel="#{usuario.dni}" itemValue="#{usuario.idUsuario}">
+	    				</f:selectItems>	    			
+	    			</p:selectOneMenu>	
+			</h:panelGrid>
+			
+			<p:commandButton value="Registrar"
+						action="#{reservaView.registrar}" update=" :growl" oncomplete="PF('dialog').hide();" />
+		</p:dialog> -->
+
+	</ui:define>
+</ui:composition>
+</html>
